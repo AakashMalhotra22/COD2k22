@@ -1,0 +1,56 @@
+#include<bits/stdc++.h>
+using namespace std;
+ 
+int main()
+{
+    int n,t,b;
+    cin>>n>>t>>b;
+ 
+    vector<int>w;
+    for(int i=0;i<n;i++)
+    {
+        int x;
+        cin>>x;
+        w.push_back(x);
+    }
+    if(t<b) cout<<-1<<endl;
+    else
+    {
+        int ans =0;
+        vector<int>store(b,-1); //O(100)
+        sort(w.begin(),w.end()); // O(nlogn)
+ 
+        for(int i=0;i<n;i++)  //O(n)
+        {
+            vector<int>sub;
+            int val = w[i];
+            int ct =0;
+            int j=b-1;
+ 
+            while(j>=0 && store[j]>=val) // O(100)
+            {
+                sub.push_back(store[j]);
+                ct++;
+                j--;
+            }
+ 
+            reverse(sub.begin(),sub.end()); //O(100)
+            
+            int val1 = b-ct;
+            int val2 = val-val1;
+ 
+            while(val2!=val)  // O(100)
+            {
+                ans++;
+                sub.push_back(val2+t);
+                val2++;
+            }
+            store = sub;
+        }
+        cout<<ans<<endl;
+    }
+    
+ 
+ 
+ 
+}
